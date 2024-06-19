@@ -23,13 +23,6 @@ sudo vim clients.conf
 ```
 
 
-### importar o schema do banco radius
-```
-sudo mysql -u root -p radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/schema.sql
-sudo mysql -u root -p -e "use radius; show tables"
-```
-
-
 ### criar o usuário radius para acessar o mysql
 ```
 sudo mysql -u root -e "CREATE DATABASE radius;"
@@ -37,6 +30,14 @@ sudo mysql -u root -e "CREATE USER 'radius'@'localhost' IDENTIFIED BY 'radius';"
 sudo mysql -u root -e "GRANT ALL PRIVILEGES ON radius.* TO 'radius'@'localhost';"
 sudo mysql -u root -e "FLUSH PRIVILEGES;"
 ```
+
+
+### importar o schema do banco radius
+```
+sudo mysql -u root -p radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/schema.sql
+sudo mysql -u root -p -e "use radius; show tables"
+```
+
 
 
 ### habilitar o módulo sql
