@@ -71,7 +71,7 @@ sudo vim /etc/php/8.1/fpm/php.ini    -> date.timezone = America/Sao_Paulo
 
 ### ajustar os dados do banco de dados
 ```
-sudo vim db.php
+sudo vim /var/www/html/db.php
 ```
 
 ### reiniciar os serviços
