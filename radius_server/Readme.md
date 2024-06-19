@@ -1,7 +1,7 @@
 
 ### Instalando os serviços radius + mysql
 ```
-sudo apt -y git install freeradius freeradius-mysql freeradius-utils mariadb-server 
+sudo apt -y  install git freeradius freeradius-mysql freeradius-utils mariadb-server 
 sudo systemctl enable --now freeradius
 ```
 
