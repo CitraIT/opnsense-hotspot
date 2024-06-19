@@ -59,7 +59,7 @@ sudo apt install -y nginx php8.1-fpm php-mysql
 ### clonar os arquivos web
 ```
 git clone https://github.com/CitraIT/opnsense-hotspot
-sudo mv radius-server/var/www/html/* /var/www/html/
+sudo mv opnsense-hotspot/radius_server/var/www/html/* /var/www/html/
 sudo chown -R www-data:www-data /var/www/html/
 ```
 
