@@ -56,6 +56,28 @@ sudo apt install -y nginx php8.1-fpm php-mysql
 ```
 
 
+### Configura o nginx para buscar o php
+```
+# ditar o arquivo /etc/nginx/sites-enabled/default, deixá-lo com o seguinte conteúdo:
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+        index index.php;
+        server_name _;
+        location / {
+                try_files $uri $uri/ =404;
+        }
+        location ~ \.php$ {
+                include fastcgi.conf;
+                fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+        }
+}
+
+```
+
+
 ### clonar os arquivos web
 ```
 git clone https://github.com/CitraIT/opnsense-hotspot
