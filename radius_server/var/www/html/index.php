@@ -80,7 +80,7 @@ function sendForm(){
 document.addEventListener('DOMContentLoaded', ()=>{
         // usuario registrado?
 	<?php
-	if($_SESSION['registration'] == 'successful'){
+	if(!empty($_SESSION['registration']) && $_SESSION['registration'] == 'successful'){
 		unset($_SESSION['registration']);
 	?>
 		alert("Acesso registrado com sucesso! Você agora pode realizar o login.");

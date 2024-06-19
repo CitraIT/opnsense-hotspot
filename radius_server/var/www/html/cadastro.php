@@ -6,14 +6,31 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $login = $_REQUEST["login"];
     $password = $_REQUEST["password"];
 
-    $sql = "select count(*) from radcheck where username = '${login}'";
-    $query = mysqli_query($conn, $sql) or die(mysqli_error());
-    $a = mysqli_fetch_row($query);
-    if((int)$a[0] > 0){
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM radcheck WHERE username = ?");
+
+    if ($stmt === false) {
+        die('Erro interno');
+    }
+
+    $stmt->bind_param('s', $login);
+    $stmt->execute();
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+
+    if($count > 0){
         die("usuario ja cadastrado");
     }else{    
-        $sql = "insert into radcheck(username,attribute,op,value) values('${login}','Cleartext-Password',':=','${password}')";
-        $query = mysqli_query($conn, $sql) or die(mysqli_error());
+        $stmt = $conn->prepare("INSERT INTO radcheck (username, attribute, op, value) VALUES (?, 'Cleartext-Password', ':=', ?)");
+
+        if ($stmt === false) {
+            die('Erro interno');
+        }
+        $stmt->bind_param('ss', $login, $password);
+        if (!$stmt->execute()) {
+            die('Erro interno');
+        }
+        $stmt->close();
         $_SESSION['registration'] = 'successful';
         header('Location: /index.php');
     }
@@ -82,7 +99,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         <label>Senha:</label>
                       </div>
                       <div class="btnContinue">
-                        <!--<button class="btn" onclick="sendForm()" style="width: 100%;">Continuar</button>-->
                         <input type="submit" class="btn" style="width: 100%;" value="Registrar-se!" />
                       </div>
                     </div>
